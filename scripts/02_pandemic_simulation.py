@@ -1,8 +1,7 @@
+"""
 
-Project: Health Pandemic Cost & Predictive Analytics Pipeline
 Module: SEIR Epidemiological Modelling & Actuarial Financial Shock Projections
-Analyst: Lenny Wanjiru (DeKUT Actuarial Science)
-
+"""
 
 import os
 import sqlite3
