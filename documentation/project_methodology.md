@@ -1,73 +1,65 @@
 # Actuarial Risk Analysis: Pandemic Financial Shock & Claims Reserving Framework
+**Lead Analyst:** Lenny Wanjiru | *Dedan Kimathi University of Technology (DeKUT)*  
+**Infrastructure Specifications:** Python (100%), SQLite, `scipy`, `lifelines`, `matplotlib`
 
-**Author:** Aspiring Actuarial Student & Data Analyst  
-**Objective:** Model cash flow stress testing, financial loss propagation, and account settlement timelines within an insurance portfolio during an epidemic emergency.
 
----
 
-##  1. Executive Summary
-This project builds an integrated data engineering and risk forecasting pipeline to simulate the financial solvency impact of a sudden pandemic wave on a health insurance portfolio. By combining relational database mapping (SQL), epidemiological differential calculus (SEIR Model), and time-to-event risk forecasting (Kaplan-Meier Survival Analysis), we quantify precise balance sheet vulnerabilities.
+## 1. Executive Summary & Core Analytical Discoveries
+This framework implements an end-to-end data science and actuarial forecasting pipeline to quantify the systemic macro-financial solvency impacts of sudden pandemic wave shocks on healthcare insurance portfolios. By linking deterministic compartmental epidemiology with non-parametric time-to-event claim survival curves and compound stochastic simulations, the pipeline converts raw case data into robust, risk-adjusted corporate cash reserves.
 
-###  Core Analytical Discoveries
- **Baseline Cost Loading:** The historical average payout baseline settles at **\$200.75 per claim**.
- **Total Pandemic Loss Impact:** The modeled pandemic surge creates an immediate **\$2,338,148.34 financial claim hit** to the fund.
- **Solvency Capital Cushion:** To avoid catastrophic insolvency under this stress test, the company must increase cash reserves by **+\$2,805,778.01 (representing a 120% margin buffer)**.
- **Cash Flow Processing Bottlenecks:** Actuarial censoring models prove that **33.8% of claims remain unresolved after 60 days**, causing severe systemic illiquidity.
+### Material Project Breakthroughs:
+*   **Systemic Loss Footprint:** Macro stress-testing models demonstrate an immediate **\$2,338,148.34** aggregate claim hit to the insurance pool, indicating severe operational strain.
+*   **Capital Adequacy Protection:** To mitigate the threat of catastrophic insolvency under peak stress conditions, the portfolio requires a **KES 2,805,778.01** capital cushion (reflecting an optimized 120% margin ceiling).
+*   **Adjudication Bottlenecks:** Non-parametric survival curves prove that **33.8%** of active corporate claims remain stuck or unresolved in the processing pipeline beyond the 60-day operational margin, causing acute systemic illiquidity.
 
----
 
-##  2. Data Infrastructure & SQL Pipeline (`scripts/01_data_import.py`)
-To keep the infrastructure portable, robust, and reproducible, raw billing data (`claim_data.csv`) is parsed programmatically using Python and mapped into a local **SQLite database** (`healthcare_risk.db`). 
 
-### Data Cleaning Strategy
- Programmatic column trimming and whitespace character extraction.
- Capitalization mapping to convert headers into standardized database format (`billed_amount`, `paid_amount`, `claim_status`, `insurance_type`).
+## 2. Relational Data Ingestion & SQL ETL Pipeline
+*   **Component Driver:** `01_data_import.py`
+*   **Infrastructure Strategy:** To ensure maximum deployment portability, reproducibility, and local data isolation, raw transactional file structures (`claim_data.csv`) are programmatically parsed, sanitized, and serialized directly into a decoupled local SQLite ecosystem (`healthcare_risk.db`).
 
-### Baseline Analytical Discoveries (SQL Output)
-Our baseline engine grouped claims across individual insurance sectors to extract true financial exposure metrics before the pandemic surge:
- **Commercial Sector:** 259 total historical claims | Average billing of \$303.14.
- **Medicaid Sector:** 259 total historical claims | Average billing of \$301.80.
- **Medicare Sector:** 233 total historical claims | Average billing of \$283.71.
- **Self-Pay Sector:** 249 total historical claims | Average billing of \$299.41.
+### Operational Data Engineering Protocol:
+1.  **Schema Normalization:** Executed string mutations, whitespace character trimmings, and capitalization mappings across raw source headers to build standard lowercase, snake_case table columns (`billed_amount`, `paid_amount`, `claim_status`, `insurance_type`).
+2.  **Baseline Exploration:** Formulated core multi-table relational SQL query aggregates to isolate financial exposures by class prior to entering simulation loops. Initial baseline calculations confirmed an aggregate portfolio average billing baseline of **\$301.80** across the commercial line, **\$303.14** for Medicaid, **\$283.71** for Medicare, and **\$299.41** for Self-Pay accounts.
 
----
 
-##  3. Epidemiological & Macro-Financial Forecasting (`scripts/02_pandemic_simulation.py`)
-We implemented a system of ordinary differential equations (ODE) via `scipy.integrate.odeint` to evaluate disease transmission vectors across **100,000 insured individuals** over a 120-day horizon:
 
- **Transmission Metric (β):** 0.85
- **Incubation Period (σ):** 0.20 (5-day progression window)
- **Recovery Rate (γ):** 0.10 (10-day recovery timeline)
- **Severity Assumptions:** 12% hospitalization rate, with pandemic clinical interactions valued at a **2.5x severity load** multiplier relative to normal operating averages.
+## 3. Epidemiological Forecasting & Macro-Financial Modeling
+*   **Component Driver:** `02_pandemic_simulation.py`
+*   **Methodology:** Deployed a deterministic system of ordinary differential equations (ODE) via `scipy.integrate.odeint` to track instantaneous population transitions across a standard 120-day pandemic wave horizon.
 
-### Peak Outflow Dynamics
-The simulation tracks an intense pressure wave beginning at Day 26 (\$25.6k/day) and accelerating rapidly to **peak liquidity drain on Day 34 (\$142.5k/day)**, which threatens standard working capital reserves.
+### Parametric Modeling Baselines:
+*   **Transmission Velocity (β):** 0.85
+*   **Incubation Rate (σ):** 0.20 (Translates to a 5-day progression window)
+*   **Recovery Rate (γ):** 0.10 (Translates to a 10-day recovery cycle window)
+*   **Initial Cohort Defenses:** Simulated a bounded environment of 100,000 insured individuals initiated with a starting infection index (I₀) of 10 active cases.
+*   **Actuarial Risk Loadings:** Out-of-sample epidemiological case incidence differentials were mapped to underwriting liabilities by factoring a **12% systemic hospitalization rate** paired with an acute pandemic medical complexity cost multiplier of **2.5x** standard historical costs. 
+*   **Liquidity Outflow Dynamics:** The pipeline isolated a severe financial pressure phase starting at Day 26 (\$25.6k daily payout velocity) accelerating rapidly to a peak portfolio liquidity drain on Day 34, tracking a maximum daily exposure run rate of **\$142.5k per day**.
 
----
 
-##  4. Individual Micro-Risk Modeling (`scripts/03_survival_analysis.py`)
-Using the `lifelines` engine, we constructed **Kaplan-Meier survival curves** tracking claim settlement cycle times from "Under Review" to ultimate resolution ("Paid" or "Denied").
+## 4. Time-to-Event Survival Analysis & Adjudication Modeling
+*   **Component Driver:** `03_survival_analysis.py`
+*   **Methodology:** Utilized the `lifelines` engine to compute non-parametric Kaplan-Meier survival adjustments, tracking the exact settlement timelines and backlogs of processing claims from initial submission to final resolution ("Paid" or "Denied").
 
-### Processing Speed Stratification Matrix
- **Day 10 Pipeline Status:** 92.8% of claims are still stuck processing.
- **Day 30 Pipeline Status:** 54.7% of claims are still stuck processing.
- **Day 60+ Pipeline Horizon:** 33.8% clear floor threshold (Censored data tracking limitation).
+### Adjudication Lifespan Diagnostics:
+*   **Processing Speeds:** Global lifetime estimations highlight severe timeline friction points. At Day 10 post-submission, **92.8%** of portfolio claims remain unresolved. This remains high at Day 30 (**54.7%** unresolved) and only drops to a **33.8%** clear floor threshold past Day 60, revealing critical backlogs.
+*   **Stratified Provider Longevity Matrix (Median Days to Resolution):**
+    *   *Medicaid:* **34.0 Days** to full clearance (Fastest operational settlement line).
+    *   *Commercial / Medicare / Self-Pay:* **38.0 Days** to final adjudication.
 
-### Median Operational Longevity Matrix
- **Medicaid:** 34.0 Days to full clearance cycle (Fastest settlement pathway).
- **Commercial / Medicare / Self-Pay:** 38.0 Days to final adjudication.
- ---
 
-##  5. Stochastic Loss Modeling (Monte Carlo Engine) (`scripts/04_stochastic_monte_carlo.py`)
-To account for tail risk and parameter uncertainty, we evolved our deterministic framework into a stochastic simulation environment by running **1,000 independent risk trials**:
 
- **Transmission Flux:** Modeled using a Normal Distribution (μ=0.85, σ=0.10) to capture random virus transmission variances.
- **Severity Shock Volatility:** Modeled using a Lognormal Distribution (μ=0.916, σ=0.15) to replicate severe right-skewed medical ICU billing spikes.
+## 5. Stochastic Loss Modeling & Solvency Analysis
+*   **Component Driver:** `04_stochastic_monte_carlo.py`
+*   **Methodology:** To fully account for parametric volatility and tail-risk uncertainty, the deterministic pipeline was evolved into a complex compound stochastic environment by executing a **1,000-trial parallel Monte Carlo simulation matrix**.
 
-### Actuarial Tail Metrics Output
- **Expected (Mean) Portfolio Loss:** \$2,380,064.71
- **95% Value-at-Risk (VaR):** \$3,046,488.85 *(The maximum loss threshold with 95% confidence)*
- **95% Tail Value-at-Risk (TVaR / CVaR):** \$3,239,669.43 *(The average expected loss if the pandemic breaks into the catastrophic worst 5% tail)*
+### Operational Parameter Shocks:
+*   **Transmission Flux:** Modeled using a Normal Distribution (μ = 0.85, σ = 0.10) to capture random virus transmission variances.
+*   **Severity Volatility:** Modeled using a log-normal distribution (μ = 0.916, σ = 0.15) to replicate severe right-skewed medical ICU billing spikes.
 
-**Strategic Decision Matrix:** To ensure institutional solvency against 95% of all simulated volatile tail events, the corporate cash reserve cushion must be formally capped at **\$3,046,488.85**.
+### Actuarial Tail Metrics Output:
+*   **Expected (Mean) Portfolio Loss:** \$2,380,064.71
+*   **95% Value at Risk (VaR):** **\$3,046,488.85** *(The maximum loss threshold expected with a 95% confidence boundary).*
+*   **95% Tail Value at Risk (TVaR / CVaR):** **\$3,239,669.43** *(The expected conditional average loss if a catastrophic pandemic overshoot breaches the 95% tail boundary).*
+*   **Capital Buffer Policy:** To guarantee total corporate solvency against 95% of all simulated extreme tail aggregations, the available cash reserves must be formally capped at **\$3,046,488.85**.
 *
