@@ -1,7 +1,6 @@
-
-Project: Health Pandemic Cost & Predictive Analytics Pipeline
+"""
 Module: Actuarial Survival Analysis & Claim Adjudication Dwell-Time Modeling
-Analyst: Lenny Wanjiru (DeKUT Actuarial Science)
+"""
 
 
 import os
