@@ -1,8 +1,8 @@
-
+"""
 Project: Health Pandemic Cost & Predictive Analytics Pipeline
 Module: Relational Database Ingestion & Baseline Actuarial Aggregation
 Analyst: Lenny Wanjiru (DeKUT Actuarial Science)
-
+"""
 import os
 import sqlite3
 import logging
