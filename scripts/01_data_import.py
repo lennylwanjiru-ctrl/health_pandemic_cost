@@ -2,7 +2,6 @@
 Project: Health Pandemic Cost & Predictive Analytics Pipeline
 Module: Relational Database Ingestion & Baseline Actuarial Aggregation
 Analyst: Lenny Wanjiru (DeKUT Actuarial Science)
-"""
 
 import os
 import sqlite3
@@ -53,7 +52,6 @@ SELECT
 FROM synthetic_claims
 GROUP BY insurance_type, claim_status
 ORDER BY insurance_type, total_claims DESC;
-"""
 
 df_insurance_risk = pd.read_sql_query(insurance_risk_query, conn)
 
