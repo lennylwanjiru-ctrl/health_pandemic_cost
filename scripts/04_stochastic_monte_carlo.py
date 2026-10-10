@@ -1,7 +1,7 @@
 
-Project: Health Pandemic Cost & Predictive Analytics Pipeline
+"""
 Module: Stochastic Monte Carlo Simulation & Extreme Tail Solvency Modeling
-Analyst: Lenny Wanjiru (DeKUT Actuarial Science)
+"""
 
 import os
 import sqlite3
